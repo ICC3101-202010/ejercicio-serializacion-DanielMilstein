@@ -1,10 +1,19 @@
 ﻿using System;
 namespace Ejserializacion
 {
+    [Serializable]
     public class Person
     {
-        public Person()
+        private string Name;
+        private string LastName;
+        private int Age;
+
+
+        public Person(string name, string lastName, int age)
         {
+            Name = name;
+            LastName = lastName;
+            Age = age;
         }
     }
 }
