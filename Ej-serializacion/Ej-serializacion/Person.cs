@@ -15,5 +15,10 @@ namespace Ejserializacion
             LastName = lastName;
             Age = age;
         }
+
+        public string GetInfo()
+        {
+            return ($"Nombre: {Name}\nApellido: {LastName}\nEdad: {Age}");
+        }
     }
 }

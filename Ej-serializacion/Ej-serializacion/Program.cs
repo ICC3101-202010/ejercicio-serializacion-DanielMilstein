@@ -10,9 +10,10 @@ namespace Ejserializacion
     {
         public static void Main(string[] args)
         {
-            Stream stream = new FileStream("Persons.bin", FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+            
             List<Person> persons = new List<Person>();
             int op = 0;
+            string a = "Persons.bin";
             while (op != '5')
             {
 
@@ -24,7 +25,7 @@ namespace Ejserializacion
                 Console.WriteLine("4. Guardar personas");
                 Console.WriteLine("5. Salir");
                 op = Console.Read();
-
+                Console.Write("\n");
                 if (op == '1')
                 {
                     Console.Write("Nombre: ");
@@ -34,23 +35,27 @@ namespace Ejserializacion
                     Console.Write("Edad: ");
                     string edad = Console.ReadLine();
                     int age = Convert.ToInt32(edad);
-                    Person daniel = new Person(nombre, apellido, age);
-                    persons.Add(daniel);
+                    Person x = new Person(nombre, apellido, age);
+                    persons.Add(x);
                 }
 
                 else if (op == '2')
                 {
+                    foreach (Person person in persons)
+                    {
+                        Console.WriteLine(person.GetInfo()); 
 
+                    }
                 }
 
                 else if (op == '3')
                 {
-                    
+                    persons = Cargar(a);
                 }
                 
                 else if (op == '4')
                 {
-                    Almacenar(stream, persons);
+                    Almacenar(persons, a);
                 }
                 
                 
@@ -64,17 +69,21 @@ namespace Ejserializacion
 
         }
 
-        public static void Almacenar(Stream stream, List<Person> persons)
+        public static void Almacenar(List<Person> persons, string a)
         {
+            
+            Stream stream = new FileStream(a, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
             IFormatter formatter = new BinaryFormatter();
             formatter.Serialize(stream, persons);
             stream.Close();
+            
 
 
         }
 
-        public static List<Person> Cargar(Stream stream)
+        public static List<Person> Cargar(string filename)
         {
+            Stream stream = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
             IFormatter formatter = new BinaryFormatter();
             List<Person> persons = (List<Person>)formatter.Deserialize(stream);
             stream.Close();
