@@ -33,8 +33,25 @@ namespace Ejserializacion
                     Console.Write("Apellido: ");
                     string apellido = Console.ReadLine();
                     Console.Write("Edad: ");
-                    string edad = Console.ReadLine();
-                    int age = Convert.ToInt32(edad);
+                    bool num = false;
+                    int age = 0;
+                    while (!num)
+                    {
+
+                        string edad = Console.ReadLine();
+
+                        try
+                        {
+                            age = Convert.ToInt32(edad);
+                            num = true;
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Edad debe ser un numero");
+                            Console.Write("Edad: ");
+                        }
+                    }
+                    
                     Person x = new Person(nombre, apellido, age);
                     persons.Add(x);
                 }
